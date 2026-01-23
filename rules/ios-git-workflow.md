@@ -74,10 +74,35 @@ plutil -lint Project.xcodeproj/project.pbxproj
 
 **Recommended .gitattributes:**
 ```gitattributes
-*.pbxproj merge=union
+# Disable merge=union for pbxproj - can cause UUID duplicates
+# Manual merge is safer than automatic union merge
+*.pbxproj -merge
 *.xcassets -diff
 *.png binary
 *.jpg binary
+
+# Git LFS for large files
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+```
+
+### Git LFS for Large Files
+
+For assets over 50MB, use Git LFS to avoid repository bloat.
+
+**Setup:**
+```bash
+git lfs install
+git lfs track "*.mp4"
+git lfs track "*.mov"
+git lfs track "*.zip"
+git lfs track "Resources/**/*.png"  # Large image directories
+```
+
+**Verify LFS tracking:**
+```bash
+git lfs ls-files
 ```
 
 ### Storyboard and XIB Files
@@ -123,6 +148,74 @@ agvtool next-version -all
 **Sensitive Keys:**
 - Never commit API keys in Info.plist
 - Use `.xcconfig` files with `.gitignore` for secrets
+
+### Signing & Provisioning
+
+**NEVER commit these files:**
+- `*.p12` (certificates)
+- `*.mobileprovision` (provisioning profiles)
+- `*.cer` (certificates)
+
+**Recommended approach: Fastlane Match**
+```bash
+# Setup match for team signing
+fastlane match init
+fastlane match development
+fastlane match appstore
+```
+
+**XCConfig Hierarchy for Secrets:**
+```
+Config/
+├── Base.xcconfig           # Shared settings
+├── Debug.xcconfig          # imports Base, Debug-specific
+├── Release.xcconfig        # imports Base, Release-specific
+├── Secrets.xcconfig        # API keys (gitignored)
+└── Secrets.xcconfig.template  # Template for team (committed)
+```
+
+```xcconfig
+// Secrets.xcconfig.template (committed)
+API_BASE_URL = https://api.example.com
+API_KEY = YOUR_API_KEY_HERE
+
+// Secrets.xcconfig (gitignored, actual values)
+API_BASE_URL = https://api.example.com
+API_KEY = sk-actual-key-here
+```
+
+### Xcode Cloud
+
+For Xcode Cloud CI/CD, use the `ci_scripts/` folder:
+
+```
+ci_scripts/
+├── ci_post_clone.sh    # After repo clone (install dependencies)
+├── ci_pre_xcodebuild.sh  # Before build (setup secrets)
+└── ci_post_xcodebuild.sh # After build (notifications, uploads)
+```
+
+**Example ci_post_clone.sh:**
+```bash
+#!/bin/bash
+set -e
+
+# Install dependencies
+cd "$CI_PRIMARY_REPOSITORY_PATH"
+
+# SPM dependencies (automatic, but can customize)
+# swift package resolve
+
+# CocoaPods (if used)
+# brew install cocoapods
+# pod install
+
+# Create Secrets.xcconfig from environment variables
+cat > "Config/Secrets.xcconfig" << EOF
+API_KEY = $API_KEY
+API_BASE_URL = $API_BASE_URL
+EOF
+```
 
 ### Recommended .gitignore
 
@@ -192,9 +285,33 @@ if which swiftlint > /dev/null; then
   swiftlint lint --quiet
 fi
 
-# Check for secrets
-if git diff --cached --name-only | xargs grep -l "API_KEY\|SECRET" 2>/dev/null; then
-  echo "ERROR: Possible secret detected"
+# Check for secrets (comprehensive patterns)
+SECRET_PATTERNS="API_KEY|SECRET|PASSWORD|PRIVATE_KEY|ACCESS_TOKEN|Bearer|sk-|pk_live|pk_test|-----BEGIN"
+if git diff --cached --name-only | xargs grep -lE "$SECRET_PATTERNS" 2>/dev/null; then
+  echo "ERROR: Possible secret detected in staged files"
+  echo "If intentional (e.g., template file), use: git commit --no-verify"
   exit 1
 fi
+
+# Check for large files (>5MB)
+LARGE_FILES=$(git diff --cached --name-only | xargs -I{} sh -c 'test -f "{}" && du -k "{}" | awk "\$1 > 5000 {print \$2}"')
+if [ -n "$LARGE_FILES" ]; then
+  echo "WARNING: Large files detected (>5MB). Consider Git LFS:"
+  echo "$LARGE_FILES"
+fi
+```
+
+### Build Phase Scripts
+
+When using Run Script phases in Xcode, always specify input/output files for incremental builds:
+
+```bash
+# Good: Xcode skips script if inputs unchanged
+Input Files:
+  $(SRCROOT)/scripts/version.sh
+  $(SRCROOT)/Config/Base.xcconfig
+Output Files:
+  $(DERIVED_FILE_DIR)/version-generated.swift
+
+# Bad: Script runs on every build (no input/output files)
 ```

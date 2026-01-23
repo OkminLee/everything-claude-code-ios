@@ -101,9 +101,13 @@ swift-refactor-cleaner → ios-security-reviewer → ios-doc-updater
 | Situation | Primary Agent | Supporting Agents |
 |-----------|---------------|-------------------|
 | New screen/feature | ios-planner | ios-architect, swift-tdd-guide |
-| Crash/bug report | xcode-build-resolver | swift-code-reviewer |
+| Crash/bug report | swift-code-reviewer | swift-tdd-guide (reproduce test) |
+| Build error | xcode-build-resolver | - |
 | PR review request | swift-code-reviewer | ios-security-reviewer |
 | Performance issue | swift-code-reviewer | swift-refactor-cleaner |
 | App Store rejection | ios-security-reviewer | ios-doc-updater |
 | iOS version upgrade | swift-refactor-cleaner | xcode-build-resolver |
 | SwiftUI migration | ios-architect | swift-refactor-cleaner |
+| Widget development | ios-planner | ios-architect (memory constraints) |
+| Localization | swift-code-reviewer | ios-doc-updater |
+| Memory leak | swift-code-reviewer | swift-refactor-cleaner |
