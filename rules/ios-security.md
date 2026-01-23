@@ -1,6 +1,6 @@
 # iOS Security Guidelines
 
-> iOS 앱 보안을 위한 필수 체크리스트 및 가이드라인
+> Essential security checklist and guidelines for iOS applications
 > Based on OWASP Mobile Top 10 and Apple Security Best Practices
 
 ---
@@ -47,14 +47,14 @@
 ### Build-time Secrets (xcconfig)
 
 ```swift
-// Config.xcconfig (Git에서 제외)
+// Config.xcconfig (excluded from Git)
 API_KEY = your_api_key_here
 API_SECRET = your_secret_here
 
 // Info.plist
 // <key>APIKey</key><string>$(API_KEY)</string>
 
-// 코드에서 사용
+// Usage in code
 guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "APIKey") as? String else {
     fatalError("APIKey not configured")
 }
@@ -66,18 +66,18 @@ guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "APIKey") as? String
 import Security
 
 // NEVER
-let apiKey = "sk-proj-xxxxx"  // 하드코딩 금지
-UserDefaults.standard.set(token, forKey: "authToken")  // UserDefaults 금지
+let apiKey = "sk-proj-xxxxx"  // No hardcoding
+UserDefaults.standard.set(token, forKey: "authToken")  // No UserDefaults
 
-// ALWAYS: Keychain 사용
+// ALWAYS: Use Keychain
 enum KeychainAccessibility {
-    /// 일반 토큰
+    /// Standard tokens
     static let standard = kSecAttrAccessibleWhenUnlocked
-    /// 민감한 토큰 (권장)
+    /// Sensitive tokens (recommended)
     static let sensitive = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-    /// 백그라운드 접근 필요 시
+    /// When background access is needed
     static let background = kSecAttrAccessibleAfterFirstUnlock
-    /// 최고 보안 (Passcode 필수)
+    /// Maximum security (requires Passcode)
     static let maximum = kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
 }
 
@@ -93,7 +93,7 @@ func saveToKeychain(
         kSecAttrAccessible as String: accessibility
     ]
 
-    // 기존 항목 삭제 후 추가
+    // Delete existing item before adding
     SecItemDelete(query as CFDictionary)
 
     let status = SecItemAdd(query as CFDictionary, nil)
@@ -135,13 +135,13 @@ func deleteFromKeychain(key: String) {
 ### Data Protection API
 
 ```swift
-// 파일 생성 시 보호 수준 설정
+// Set protection level when creating files
 try data.write(
     to: fileURL,
     options: [.atomic, .completeFileProtection]
 )
 
-// 또는 FileManager로 설정
+// Or set via FileManager
 try FileManager.default.setAttributes(
     [.protectionKey: FileProtectionType.complete],
     ofItemAtPath: filePath
@@ -151,31 +151,31 @@ try FileManager.default.setAttributes(
 ### In-Memory Data Clearing
 
 ```swift
-// 민감한 데이터 사용 후 메모리에서 제거
+// Clear sensitive data from memory after use
 var sensitiveData = Data(/* ... */)
 defer {
     sensitiveData.resetBytes(in: 0..<sensitiveData.count)
 }
 
-// 사용 로직
+// Process logic
 processSensitiveData(sensitiveData)
-// defer로 자동 클리어
+// Automatically cleared via defer
 ```
 
 ### Core Data / SwiftData Encryption
 
 ```swift
-// Core Data: SQLite 암호화 (SQLCipher 또는 Encrypted Core Data)
+// Core Data: SQLite encryption (SQLCipher or Encrypted Core Data)
 let description = NSPersistentStoreDescription()
 description.setOption(
     FileProtectionType.complete as NSObject,
     forKey: NSPersistentStoreFileProtectionKey
 )
 
-// SwiftData (iOS 17+): 자동으로 Data Protection 적용
+// SwiftData (iOS 17+): Data Protection applied automatically
 @Model
 class SensitiveRecord {
-    var encryptedPayload: Data  // 추가 암호화 권장
+    var encryptedPayload: Data  // Additional encryption recommended
 }
 ```
 
@@ -186,8 +186,8 @@ class SensitiveRecord {
 ### App Transport Security (ATS)
 
 ```xml
-<!-- Info.plist - ATS 기본 활성화 (권장) -->
-<!-- 예외가 필요한 경우에만 명시 -->
+<!-- Info.plist - ATS enabled by default (recommended) -->
+<!-- Only specify exceptions when necessary -->
 <key>NSAppTransportSecurity</key>
 <dict>
     <key>NSExceptionDomains</key>
@@ -198,7 +198,7 @@ class SensitiveRecord {
             <true/>
             <key>NSExceptionMinimumTLSVersion</key>
             <string>TLSv1.2</string>
-            <!-- 예외 사유 문서화 필수 -->
+            <!-- Document exception reason -->
         </dict>
     </dict>
 </dict>
@@ -208,7 +208,7 @@ class SensitiveRecord {
 
 ```swift
 class SSLPinningDelegate: NSObject, URLSessionDelegate {
-    private let pinnedCertificateHash: String  // SHA256 해시
+    private let pinnedCertificateHash: String  // SHA256 hash
 
     func urlSession(
         _ session: URLSession,
@@ -221,7 +221,7 @@ class SSLPinningDelegate: NSObject, URLSessionDelegate {
             return (.cancelAuthenticationChallenge, nil)
         }
 
-        // 인증서 해시 비교
+        // Compare certificate hash
         let serverCertData = SecCertificateCopyData(certificate) as Data
         let serverHash = SHA256.hash(data: serverCertData)
             .map { String(format: "%02x", $0) }
@@ -239,7 +239,7 @@ class SSLPinningDelegate: NSObject, URLSessionDelegate {
 ### Ephemeral Sessions (Sensitive APIs)
 
 ```swift
-// 민감한 요청용 - 캐시/쿠키 비활성화
+// For sensitive requests - disable cache/cookies
 let ephemeralConfig = URLSessionConfiguration.ephemeral
 ephemeralConfig.urlCache = nil
 ephemeralConfig.httpCookieStorage = nil
@@ -268,7 +268,7 @@ actor BiometricAuthenticator {
         let context = LAContext()
         var error: NSError?
 
-        // 생체인증 가능 여부 확인
+        // Check biometric availability
         guard context.canEvaluatePolicy(
             .deviceOwnerAuthenticationWithBiometrics,
             error: &error
@@ -276,10 +276,10 @@ actor BiometricAuthenticator {
             throw AuthError.biometricNotAvailable(error)
         }
 
-        // 보안 강화 설정
-        context.touchIDAuthenticationAllowableReuseDuration = 0  // 매번 재인증
+        // Enhanced security settings
+        context.touchIDAuthenticationAllowableReuseDuration = 0  // Re-authenticate every time
 
-        // iOS 16+: 생체인증 정보 변경 감지
+        // iOS 16+: Detect biometric changes
         if let currentState = context.evaluatedPolicyDomainState,
            let saved = savedDomainState,
            currentState != saved {
@@ -288,10 +288,10 @@ actor BiometricAuthenticator {
 
         let success = try await context.evaluatePolicy(
             .deviceOwnerAuthenticationWithBiometrics,
-            localizedReason: "계정 접근을 위해 인증이 필요합니다"
+            localizedReason: "Authentication required to access your account"
         )
 
-        // 도메인 상태 저장
+        // Save domain state
         savedDomainState = context.evaluatedPolicyDomainState
 
         return success
@@ -329,7 +329,7 @@ func signInWithOAuth() async throws -> String {
         }
 
         session.presentationContextProvider = self
-        session.prefersEphemeralWebBrowserSession = true  // 세션 공유 방지
+        session.prefersEphemeralWebBrowserSession = true  // Prevent session sharing
         session.start()
     }
 }
@@ -416,7 +416,7 @@ func requestTrackingPermission() async -> Bool {
 ### Screenshot Protection
 
 ```swift
-// 민감한 화면 보호
+// Protect sensitive screens
 class SecureViewController: UIViewController {
     private var secureField: UITextField?
 
@@ -426,14 +426,14 @@ class SecureViewController: UIViewController {
     }
 
     private func setupScreenshotProtection() {
-        // isSecureTextEntry를 이용한 보호 (스크린샷에 표시 안 됨)
+        // Use isSecureTextEntry for protection (not shown in screenshots)
         let field = UITextField()
         field.isSecureTextEntry = true
         view.addSubview(field)
         field.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         field.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
-        // 보호할 뷰를 field의 서브뷰로 추가
+        // Add protected view as subview of field
         view.layer.superlayer?.addSublayer(field.layer)
         field.layer.sublayers?.first?.addSublayer(sensitiveView.layer)
 
@@ -445,9 +445,9 @@ class SecureViewController: UIViewController {
 ### Background Snapshot Protection
 
 ```swift
-// SceneDelegate 또는 AppDelegate
+// SceneDelegate or AppDelegate
 func sceneWillResignActive(_ scene: UIScene) {
-    // 백그라운드 전환 시 민감 정보 숨김
+    // Hide sensitive information when entering background
     showPrivacyOverlay()
 }
 
@@ -471,12 +471,12 @@ private func hidePrivacyOverlay() {
 ### Clipboard Security
 
 ```swift
-// 민감한 데이터 복사 시 만료 시간 설정
+// Set expiration when copying sensitive data
 UIPasteboard.general.setItems(
     [[UIPasteboard.typeAutomatic: sensitiveText]],
     options: [
-        .expirationDate: Date().addingTimeInterval(60),  // 60초 후 만료
-        .localOnly: true  // 다른 기기와 공유 안 함
+        .expirationDate: Date().addingTimeInterval(60),  // Expires after 60 seconds
+        .localOnly: true  // Don't share with other devices
     ]
 )
 ```
@@ -493,7 +493,7 @@ func isDeviceCompromised() -> Bool {
     return false
     #else
 
-    // 1. 의심 파일 존재 확인
+    // 1. Check for suspicious files
     let suspiciousPaths = [
         "/Applications/Cydia.app",
         "/Library/MobileSubstrate/MobileSubstrate.dylib",
@@ -509,17 +509,17 @@ func isDeviceCompromised() -> Bool {
         }
     }
 
-    // 2. 샌드박스 외부 쓰기 권한 확인
+    // 2. Check write permission outside sandbox
     let testPath = "/private/jailbreak_test_\(UUID().uuidString)"
     do {
         try "test".write(toFile: testPath, atomically: true, encoding: .utf8)
         try FileManager.default.removeItem(atPath: testPath)
-        return true  // 쓰기 성공 = 탈옥
+        return true  // Write succeeded = jailbroken
     } catch {
-        // 쓰기 실패 = 정상
+        // Write failed = normal
     }
 
-    // 3. URL scheme 확인
+    // 3. Check URL scheme
     if let url = URL(string: "cydia://package/com.example"),
        UIApplication.shared.canOpenURL(url) {
         return true
@@ -558,7 +558,7 @@ actor AppAttestService {
         let service = DCAppAttestService.shared
         let attestation = try await service.attestKey(keyId, clientDataHash: challenge)
 
-        // 서버로 attestation 전송하여 검증
+        // Send attestation to server for verification
         return attestation
     }
 
@@ -586,7 +586,7 @@ Security Issue Found
         │
         ▼
    ┌────────────┐
-   │   STOP     │ ← 즉시 작업 중단
+   │   STOP     │ ← Stop work immediately
    └────────────┘
         │
         ▼
@@ -621,11 +621,11 @@ Security Issue Found
 ### Use ios-security-reviewer Agent
 
 ```
-보안 이슈 발견 시:
-1. ios-security-reviewer 에이전트 호출
-2. OWASP Mobile Top 10 기준 분석
-3. 심각도별 우선순위 결정
-4. 수정 계획 수립
+When security issue is found:
+1. Invoke ios-security-reviewer agent
+2. Analyze based on OWASP Mobile Top 10
+3. Determine priority by severity
+4. Create remediation plan
 ```
 
 ---
