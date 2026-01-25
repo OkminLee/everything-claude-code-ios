@@ -1,0 +1,29 @@
+{
+  "name": "everything-claude-code-ios",
+  "version": "1.0.0",
+  "description": "Comprehensive Claude Code configurations for iOS/Swift development with agents, skills, hooks, and MCP servers",
+  "author": {
+    "name": "okminlee",
+    "url": "https://github.com/mininny"
+  },
+  "homepage": "https://github.com/mininny/everything-claude-code-ios",
+  "repository": "https://github.com/mininny/everything-claude-code-ios",
+  "license": "MIT",
+  "keywords": [
+    "ios",
+    "swift",
+    "swiftui",
+    "xcode",
+    "clean-architecture",
+    "tca",
+    "tdd",
+    "xcuitest",
+    "code-review",
+    "security"
+  ],
+  "agents": "./agents/",
+  "commands": "./commands/",
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": "./.mcp.json"
+}
