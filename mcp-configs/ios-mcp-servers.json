@@ -1,0 +1,53 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_PAT_HERE"
+      },
+      "description": "GitHub operations - PRs, issues, repos. Essential for iOS project management."
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Persistent memory across sessions. Useful for tracking iOS project context."
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Chain-of-thought reasoning. Helpful for complex iOS architecture decisions."
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "description": "Live documentation lookup. Query Swift, SwiftUI, and third-party library docs."
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/your/ios/projects"],
+      "description": "Filesystem operations. Set path to your iOS project directory."
+    }
+  },
+  "_comments": {
+    "usage": "Copy the servers you need to your ~/.claude.json mcpServers section",
+    "env_vars": "Replace YOUR_GITHUB_PAT_HERE with your actual GitHub Personal Access Token",
+    "filesystem_path": "Update /path/to/your/ios/projects to your actual iOS project directory",
+    "context_warning": "Keep under 10 MCPs enabled to preserve context window",
+    "ios_notes": {
+      "github": "Required for PR reviews, issue tracking, and repo management",
+      "memory": "Maintains project context across coding sessions",
+      "context7": "Query docs for SPM packages, Alamofire, Kingfisher, etc.",
+      "sequential-thinking": "Useful for architectural decisions and debugging"
+    }
+  },
+  "_future_considerations": {
+    "note": "iOS-specific MCP servers may become available in the future",
+    "potential_servers": [
+      "apple-docs - Direct Apple documentation access",
+      "swift-package - SPM package search and info",
+      "xcode-build - Xcode build integration",
+      "simulator - iOS Simulator control"
+    ]
+  }
+}
