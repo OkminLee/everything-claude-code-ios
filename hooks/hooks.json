@@ -1,0 +1,114 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"git push\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "#!/bin/bash\necho '[iOS Plugin] Review changes before push...' >&2\necho '[iOS Plugin] Press Enter to continue or Ctrl+C to abort...' >&2\nread -r"
+          }
+        ],
+        "description": "Pause before git push to review changes"
+      },
+      {
+        "matcher": "tool == \"Edit\" || tool == \"Write\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/strategic-compact/suggest-compact.sh"
+          }
+        ],
+        "description": "Suggest manual compaction at logical intervals"
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/memory-persistence/pre-compact.sh"
+          }
+        ],
+        "description": "Save state before context compaction"
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/memory-persistence/session-start.sh"
+          }
+        ],
+        "description": "Load previous context on new session"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "tool == \"Bash\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "#!/bin/bash\ninput=$(cat)\ncmd=$(echo \"$input\" | jq -r '.tool_input.command')\n\nif echo \"$cmd\" | grep -qE 'gh pr create'; then\n  output=$(echo \"$input\" | jq -r '.tool_output.output // \"\"')\n  pr_url=$(echo \"$output\" | grep -oE 'https://github.com/[^/]+/[^/]+/pull/[0-9]+')\n  \n  if [ -n \"$pr_url\" ]; then\n    echo \"[iOS Plugin] PR created: $pr_url\" >&2\n    repo=$(echo \"$pr_url\" | sed -E 's|https://github.com/([^/]+/[^/]+)/pull/[0-9]+|\\1|')\n    pr_num=$(echo \"$pr_url\" | sed -E 's|.*/pull/([0-9]+)|\\1|')\n    echo \"[iOS Plugin] To review: gh pr review $pr_num --repo $repo\" >&2\n  fi\nfi\n\necho \"$input\""
+          }
+        ],
+        "description": "Log PR URL after creation"
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.swift$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "#!/bin/bash\ninput=$(cat)\nfile_path=$(echo \"$input\" | jq -r '.tool_input.file_path // \"\"')\n\nif [ -n \"$file_path\" ] && [ -f \"$file_path\" ]; then\n  if command -v swiftformat >/dev/null 2>&1; then\n    swiftformat \"$file_path\" --quiet 2>&1 | head -3 >&2\n  fi\nfi\n\necho \"$input\""
+          }
+        ],
+        "description": "Auto-format Swift files with SwiftFormat"
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\.swift$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "#!/bin/bash\ninput=$(cat)\nfile_path=$(echo \"$input\" | jq -r '.tool_input.file_path // \"\"')\n\nif [ -n \"$file_path\" ] && [ -f \"$file_path\" ]; then\n  print_stmts=$(grep -n \"print(\" \"$file_path\" 2>/dev/null | grep -v \"#if DEBUG\" | head -5 || true)\n  \n  if [ -n \"$print_stmts\" ]; then\n    echo \"[iOS Plugin] WARNING: print() in $file_path\" >&2\n    echo \"$print_stmts\" >&2\n    echo \"[iOS Plugin] Wrap in #if DEBUG before commit\" >&2\n  fi\nfi\n\necho \"$input\""
+          }
+        ],
+        "description": "Warn about print() statements in Swift files"
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "#!/bin/bash\ninput=$(cat)\n\nif git rev-parse --git-dir > /dev/null 2>&1; then\n  modified=$(git diff --name-only HEAD 2>/dev/null | grep -E '\\.swift$' || true)\n  \n  if [ -n \"$modified\" ]; then\n    while IFS= read -r file; do\n      if [ -f \"$file\" ] && grep -q \"print(\" \"$file\" 2>/dev/null; then\n        echo \"[iOS Plugin] WARNING: print() in $file\" >&2\n      fi\n    done <<< \"$modified\"\n  fi\nfi\n\necho \"$input\""
+          }
+        ],
+        "description": "Final audit for print() in modified Swift files"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/memory-persistence/session-end.sh"
+          }
+        ],
+        "description": "Persist session state on end"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/skills/continuous-learning/evaluate-session.sh"
+          }
+        ],
+        "description": "Evaluate session for extractable patterns"
+      }
+    ]
+  }
+}
