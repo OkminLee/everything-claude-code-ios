@@ -53,6 +53,27 @@ git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plug
 
 **When to use**: You want to customize the plugin per project or share settings with your team via version control.
 
+#### Method C: Plugin Command (Recommended)
+
+Use Claude Code's built-in plugin system for the easiest installation and updates.
+
+```bash
+# Step 1: Add this repository as a marketplace (run in Claude Code)
+/plugin marketplace add https://github.com/mininny/everything-claude-code-ios
+
+# Step 2: Install the plugin
+/plugin install everything-claude-code-ios@everything-claude-code-ios
+```
+
+**Installation Scopes**:
+```bash
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # All projects (default)
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # Share with team
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # This project only (gitignored)
+```
+
+**When to use**: You want automatic updates and easy management via Claude Code commands.
+
 ### Verify Installation
 
 After installation, start Claude Code in your project directory:
@@ -68,6 +89,32 @@ Then try a command to verify the plugin is loaded:
 ```
 
 If you see the planning agent respond, the installation was successful.
+
+For plugin command installation, verify with:
+```
+/plugin list
+```
+You should see `everything-claude-code-ios` in the installed plugins.
+
+### Updating the Plugin
+
+```bash
+# Update marketplace index
+/plugin marketplace update everything-claude-code-ios
+
+# Update the plugin to latest version
+/plugin update everything-claude-code-ios
+```
+
+### Uninstalling
+
+```bash
+# Remove the plugin
+/plugin uninstall everything-claude-code-ios
+
+# Remove the marketplace (optional)
+/plugin marketplace remove everything-claude-code-ios
+```
 
 ---
 
@@ -355,6 +402,27 @@ git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plug
 
 **사용 시기**: 프로젝트별로 플러그인을 커스터마이징하거나, 팀원과 버전 관리를 통해 설정을 공유하고 싶을 때
 
+#### 방법 C: Plugin 명령어 (권장)
+
+Claude Code의 내장 플러그인 시스템을 사용하여 가장 쉽게 설치하고 업데이트할 수 있습니다.
+
+```bash
+# Step 1: 저장소를 마켓플레이스로 추가 (Claude Code에서 실행)
+/plugin marketplace add https://github.com/mininny/everything-claude-code-ios
+
+# Step 2: 플러그인 설치
+/plugin install everything-claude-code-ios@everything-claude-code-ios
+```
+
+**설치 범위 옵션**:
+```bash
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # 모든 프로젝트 (기본값)
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # 팀과 공유
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # 이 프로젝트만 (gitignore됨)
+```
+
+**사용 시기**: 자동 업데이트와 Claude Code 명령어를 통한 간편한 관리를 원할 때
+
 ### 설치 확인
 
 설치 후, 프로젝트 디렉토리에서 Claude Code를 시작합니다:
@@ -370,6 +438,32 @@ claude
 ```
 
 플래닝 에이전트가 응답하면 설치가 완료된 것입니다.
+
+Plugin 명령어로 설치한 경우 다음으로 확인:
+```
+/plugin list
+```
+설치된 플러그인 목록에 `everything-claude-code-ios`가 표시되어야 합니다.
+
+### 플러그인 업데이트
+
+```bash
+# 마켓플레이스 인덱스 업데이트
+/plugin marketplace update everything-claude-code-ios
+
+# 플러그인을 최신 버전으로 업데이트
+/plugin update everything-claude-code-ios
+```
+
+### 플러그인 삭제
+
+```bash
+# 플러그인 제거
+/plugin uninstall everything-claude-code-ios
+
+# 마켓플레이스 제거 (선택사항)
+/plugin marketplace remove everything-claude-code-ios
+```
 
 ---
 
