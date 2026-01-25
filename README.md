@@ -2,13 +2,26 @@
 
 > Claude Code plugin optimized for iOS/Swift development.
 
-[![Swift](https://img.shields.io/badge/Swift-5.9+-orange.svg)](https://swift.org)
-[![Platform](https://img.shields.io/badge/Platform-iOS%2017+-blue.svg)](https://developer.apple.com/ios/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-blueviolet.svg)](https://claude.ai/code)
 
 > **Based on [everything-claude-code](https://github.com/affaan-m/everything-claude-code)** by [@affaan-m](https://github.com/affaan-m)
-> An Anthropic hackathon winner's comprehensive Claude Code configuration collection.
+> — An Anthropic hackathon winner's comprehensive Claude Code configuration collection.
+
+---
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Usage Examples](#usage-examples)
+- [What's Included](#whats-included)
+- [Alternative Installation](#alternative-installation)
+- [Configuration](#configuration)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [한국어 가이드](#한국어-가이드)
 
 ---
 
@@ -16,104 +29,48 @@
 
 ### Prerequisites
 
-- [Claude Code CLI](https://claude.ai/code) installed and configured
-- macOS (required for iOS development)
-- Git
-- Xcode 15+ (for iOS project development)
+- [Claude Code CLI](https://claude.ai/code) installed
+- macOS with Xcode 15+
 
-### Installation
+### Installation (Recommended)
 
-Choose the method that best fits your workflow:
-
-#### Method A: Global Installation
-
-Install once, use across all your iOS projects.
+Run these commands inside Claude Code:
 
 ```bash
-# Clone the repository
-git clone https://github.com/mininny/everything-claude-code-ios.git
-
-# Copy to Claude Code plugins directory
-cp -r everything-claude-code-ios ~/.claude/plugins/everything-claude-code-ios
-```
-
-**When to use**: You want consistent iOS development assistance across all projects.
-
-#### Method B: Project-Local Installation
-
-Install directly in your project for project-specific customization.
-
-```bash
-# Navigate to your iOS project root
-cd /path/to/your/ios-project
-
-# Clone into the .claude/plugins directory
-git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plugins/ios
-```
-
-**When to use**: You want to customize the plugin per project or share settings with your team via version control.
-
-#### Method C: Plugin Command (Recommended)
-
-Use Claude Code's built-in plugin system for the easiest installation and updates.
-
-```bash
-# Step 1: Add this repository as a marketplace (run in Claude Code)
+# 1. Add marketplace
 /plugin marketplace add https://github.com/mininny/everything-claude-code-ios
 
-# Step 2: Install the plugin
+# 2. Install plugin
 /plugin install everything-claude-code-ios@everything-claude-code-ios
 ```
 
-**Installation Scopes**:
-```bash
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # All projects (default)
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # Share with team
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # This project only (gitignored)
-```
+### Verify
 
-**When to use**: You want automatic updates and easy management via Claude Code commands.
-
-### Verify Installation
-
-After installation, start Claude Code in your project directory:
-
-```bash
-claude
-```
-
-Then try a command to verify the plugin is loaded:
-
-```
-/plan Test the plugin installation
-```
-
-If you see the planning agent respond, the installation was successful.
-
-For plugin command installation, verify with:
 ```
 /plugin list
 ```
-You should see `everything-claude-code-ios` in the installed plugins.
 
-### Updating the Plugin
+You should see `everything-claude-code-ios` in the list. Try `/plan hello` to confirm.
 
-```bash
-# Update marketplace index
-/plugin marketplace update everything-claude-code-ios
+---
 
-# Update the plugin to latest version
-/plugin update everything-claude-code-ios
+## Usage Examples
+
+### Agents
+
+```
+@ios-architect Design authentication module architecture
+@swift-tdd-guide Write tests for LoginViewModel
+@ios-security-reviewer Review Keychain implementation
 ```
 
-### Uninstalling
+### Commands
 
-```bash
-# Remove the plugin
-/plugin uninstall everything-claude-code-ios
-
-# Remove the marketplace (optional)
-/plugin marketplace remove everything-claude-code-ios
+```
+/plan Implement user profile editing
+/swift-review
+/xcode-build-fix
+/swift-tdd
 ```
 
 ---
@@ -122,179 +79,93 @@ You should see `everything-claude-code-ios` in the installed plugins.
 
 ### Agents (9)
 
-Specialized AI agents for iOS development tasks:
-
 | Agent | Description |
 |-------|-------------|
-| `ios-planner` | Feature planning with App Store compliance checks |
+| `ios-planner` | Feature planning with App Store compliance |
 | `ios-architect` | Architecture design (Clean Architecture, TCA) |
-| `swift-tdd-guide` | TDD workflow with Swift Testing framework |
+| `swift-tdd-guide` | TDD workflow with Swift Testing |
 | `swift-code-reviewer` | Code review with Swift best practices |
 | `ios-security-reviewer` | Security audit (OWASP, Keychain, ATS) |
 | `xcode-build-resolver` | Build error resolution (Swift 6, Privacy Manifest) |
 | `xcuitest-runner` | E2E testing with Page Object Model |
 | `swift-refactor-cleaner` | Refactoring with Periphery dead code detection |
-| `ios-doc-updater` | Documentation with DocC and Codemaps |
-
-### Skills (8+)
-
-Reusable capabilities Claude can invoke:
-
-- `/ios-security-review` - Comprehensive security checklist
-- `/swift-tdd-workflow` - Red-Green-Refactor cycle guide
-- Swift coding standards, SwiftUI patterns, and more
+| `ios-doc-updater` | Documentation with DocC |
 
 ### Commands (10)
 
-Slash commands for common workflows:
+| Command | Description |
+|---------|-------------|
+| `/plan` | Create implementation plan |
+| `/swift-tdd` | Start TDD session |
+| `/swift-review` | Code review current changes |
+| `/xcode-build-fix` | Resolve build errors |
+| `/xcuitest` | Run E2E tests |
+| `/ios-coverage` | Check test coverage |
+| `/swift-refactor` | Refactor with dead code detection |
+| `/learn` | Learn from codebase patterns |
+| `/update-docs` | Update documentation |
+| `/update-codemaps` | Update code maps |
 
-- `/plan` - Create implementation plan before coding
-- `/swift-tdd` - Start TDD session
-- `/swift-review` - Code review current changes
-- `/xcode-build-fix` - Resolve build errors
-- `/xcuitest` - Run E2E tests
-- `/ios-coverage` - Check test coverage
-- And more...
+### Skills (6)
+
+- `ios-security-review` - Security checklist
+- `swift-tdd-workflow` - Red-Green-Refactor guide
+- `swift-coding-standards` - Swift best practices
+- `swiftui-patterns` - SwiftUI patterns
+- `ios-project-guidelines` - Project structure guide
+- `backend-patterns` - Backend integration patterns
 
 ### Hooks
 
-Automated behaviors for iOS development:
-
-- **Pre-push review** - Pause before git push for final review
 - **SwiftFormat** - Auto-format Swift files on edit
 - **print() warnings** - Alert on debug print statements
+- **Pre-push review** - Review before git push
 - **Session persistence** - Maintain context across sessions
 
 ### MCP Servers
 
-Pre-configured Model Context Protocol servers:
-
 - GitHub - PR/Issue management
 - Memory - Persistent context
-- Sequential-thinking - Complex reasoning
 - Context7 - Documentation lookup
 
 ---
 
-## Usage Examples
+## Alternative Installation
 
-### Using Agents
+### Global Installation
 
-```
-@ios-architect Design the architecture for a new authentication module
-@swift-tdd-guide Help me write tests for the LoginViewModel
-@ios-security-reviewer Review the Keychain implementation
-```
+Use across all projects:
 
-### Using Commands
-
-```
-/plan Implement user profile editing feature
-/swift-review
-/xcode-build-fix
+```bash
+git clone https://github.com/mininny/everything-claude-code-ios.git
+cp -r everything-claude-code-ios ~/.claude/plugins/everything-claude-code-ios
 ```
 
----
+### Project-Local Installation
 
-## Troubleshooting
+For project-specific customization:
 
-### Plugin Not Recognized
-
-**Symptoms**: Commands like `/plan` don't work, agents aren't available.
-
-**Solutions**:
-1. Verify the plugin directory exists:
-   ```bash
-   # For global installation
-   ls ~/.claude/plugins/everything-claude-code-ios
-
-   # For local installation
-   ls .claude/plugins/ios
-   ```
-2. Check file permissions:
-   ```bash
-   chmod -R 755 ~/.claude/plugins/everything-claude-code-ios
-   ```
-3. Restart Claude Code completely (exit and relaunch)
-
-### MCP Servers Not Connecting
-
-**Symptoms**: GitHub integration not working, memory features unavailable.
-
-**Solutions**:
-1. Verify environment variables are set:
-   ```bash
-   echo $GITHUB_TOKEN
-   ```
-2. Check if the token has required permissions (repo, read:user)
-3. Regenerate the token if expired
-
-### Hooks Not Triggering
-
-**Symptoms**: SwiftFormat doesn't run on save, pre-push review doesn't appear.
-
-**Solutions**:
-1. Verify `hooks.json` syntax is valid:
-   ```bash
-   cat ~/.claude/plugins/everything-claude-code-ios/hooks.json | python3 -m json.tool
-   ```
-2. Check if the file pattern matches your files
-3. Ensure the hook command (e.g., `swiftformat`) is installed and in PATH
-
-### Swift Tools Not Found
-
-**Symptoms**: SwiftFormat, Periphery, or other tools report "command not found".
-
-**Solutions**:
-1. Install missing tools via Homebrew:
-   ```bash
-   brew install swiftformat
-   brew install peripheryapp/periphery/periphery
-   ```
-2. Verify installation:
-   ```bash
-   which swiftformat
-   which periphery
-   ```
-
----
-
-## Architecture Support
-
-### Clean Architecture
-
-```
-Presentation Layer (SwiftUI Views, ViewModels)
-    ↓
-Domain Layer (Use Cases, Entities, Repository Protocols)
-    ↓
-Data Layer (Repository Implementations, Data Sources)
-    ↓
-Infrastructure Layer (Network, Database, Keychain)
+```bash
+cd /path/to/your/ios-project
+git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plugins/ios
 ```
 
-### TCA (The Composable Architecture)
+### Plugin Command Options
 
+```bash
+# Installation scopes
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # All projects (default)
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # Share with team
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # This project only
+
+# Update
+/plugin marketplace update everything-claude-code-ios
+/plugin update everything-claude-code-ios
+
+# Uninstall
+/plugin uninstall everything-claude-code-ios
+/plugin marketplace remove everything-claude-code-ios
 ```
-Feature
-├── State
-├── Action
-├── Reducer
-├── Environment/Dependencies
-└── View
-```
-
----
-
-## Testing Strategy
-
-| Test Type | Framework | Purpose |
-|-----------|-----------|---------|
-| Unit Tests | Swift Testing | Business logic, ViewModels, Use Cases |
-| Integration Tests | Swift Testing | Repository + Data Source integration |
-| UI Tests | XCUITest | User flows, accessibility |
-| Snapshot Tests | swift-snapshot-testing | UI regression |
-| Performance Tests | XCTest | Memory, CPU profiling |
 
 ---
 
@@ -302,15 +173,13 @@ Feature
 
 ### Environment Variables
 
-For MCP servers, set these environment variables:
-
 ```bash
-export GITHUB_TOKEN="your_github_pat"
+export GITHUB_TOKEN="your_github_pat"  # For GitHub MCP server
 ```
 
 ### Customization
 
-Override plugin settings in your project's `.claude/settings.json`:
+Override settings in `.claude/settings.json`:
 
 ```json
 {
@@ -324,32 +193,78 @@ Override plugin settings in your project's `.claude/settings.json`:
 
 ---
 
+## Troubleshooting
+
+<details>
+<summary><strong>Plugin Not Recognized</strong></summary>
+
+**Symptoms**: Commands like `/plan` don't work
+
+**Solutions**:
+1. Verify installation: `/plugin list`
+2. For manual installation, check directory exists:
+   ```bash
+   ls ~/.claude/plugins/everything-claude-code-ios
+   ```
+3. Check permissions: `chmod -R 755 ~/.claude/plugins/everything-claude-code-ios`
+4. Restart Claude Code
+
+</details>
+
+<details>
+<summary><strong>MCP Servers Not Connecting</strong></summary>
+
+**Symptoms**: GitHub integration not working
+
+**Solutions**:
+1. Verify: `echo $GITHUB_TOKEN`
+2. Check token permissions (repo, read:user)
+3. Regenerate if expired
+
+</details>
+
+<details>
+<summary><strong>Hooks Not Triggering</strong></summary>
+
+**Symptoms**: SwiftFormat doesn't run on save
+
+**Solutions**:
+1. Verify hooks.json syntax: `python3 -m json.tool < hooks/hooks.json`
+2. Check file pattern matches
+3. Ensure `swiftformat` is in PATH: `which swiftformat`
+
+</details>
+
+<details>
+<summary><strong>Swift Tools Not Found</strong></summary>
+
+**Solutions**:
+```bash
+brew install swiftformat
+brew install peripheryapp/periphery/periphery
+```
+
+</details>
+
+---
+
 ## Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE).
 
 ---
 
 ## Acknowledgments
 
-### Origin Project
+This plugin is built upon **[everything-claude-code](https://github.com/affaan-m/everything-claude-code)** by [@affaan-m](https://github.com/affaan-m), an Anthropic hackathon winner's production-ready Claude Code configuration.
 
-This iOS-focused plugin is built upon **[everything-claude-code](https://github.com/affaan-m/everything-claude-code)**, created by [@affaan-m](https://github.com/affaan-m).
-
-The original project provides production-ready agents, skills, hooks, commands, and MCP configurations developed through extensive real-world usage. It won recognition at an Anthropic hackathon and serves as a comprehensive foundation for Claude Code customization.
-
-We deeply appreciate the open-source contribution that made this iOS adaptation possible.
-
-### Additional Thanks
-
-- Apple and the Swift community for iOS development best practices
-- The Claude Code team for building an extensible platform
+Thanks to Apple, Swift community, and the Claude Code team.
 
 ---
 
@@ -361,108 +276,63 @@ We deeply appreciate the open-source contribution that made this iOS adaptation 
 
 ---
 
+## 목차
+
+- [빠른 시작](#빠른-시작)
+- [사용 예시](#사용-예시)
+- [포함된 구성 요소](#포함된-구성-요소)
+- [대체 설치 방법](#대체-설치-방법)
+- [설정](#설정)
+- [문제 해결](#문제-해결)
+
+---
+
 ## 빠른 시작
 
 ### 필수 조건
 
-- [Claude Code CLI](https://claude.ai/code) 설치 및 설정 완료
-- macOS (iOS 개발에 필요)
-- Git
-- Xcode 15+ (iOS 프로젝트 개발용)
+- [Claude Code CLI](https://claude.ai/code) 설치 완료
+- macOS 및 Xcode 15+
 
-### 설치 방법
+### 설치 (권장)
 
-사용 환경에 맞는 방법을 선택하세요:
-
-#### 방법 A: 글로벌 설치
-
-한 번 설치하면 모든 iOS 프로젝트에서 사용 가능합니다.
+Claude Code 내에서 다음 명령어를 실행하세요:
 
 ```bash
-# 저장소 클론
-git clone https://github.com/mininny/everything-claude-code-ios.git
-
-# Claude Code 플러그인 디렉토리에 복사
-cp -r everything-claude-code-ios ~/.claude/plugins/everything-claude-code-ios
-```
-
-**사용 시기**: 모든 프로젝트에서 일관된 iOS 개발 지원을 원할 때
-
-#### 방법 B: 프로젝트별 설치
-
-프로젝트에 직접 설치하여 프로젝트별 커스터마이징이 가능합니다.
-
-```bash
-# iOS 프로젝트 루트로 이동
-cd /path/to/your/ios-project
-
-# .claude/plugins 디렉토리에 클론
-git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plugins/ios
-```
-
-**사용 시기**: 프로젝트별로 플러그인을 커스터마이징하거나, 팀원과 버전 관리를 통해 설정을 공유하고 싶을 때
-
-#### 방법 C: Plugin 명령어 (권장)
-
-Claude Code의 내장 플러그인 시스템을 사용하여 가장 쉽게 설치하고 업데이트할 수 있습니다.
-
-```bash
-# Step 1: 저장소를 마켓플레이스로 추가 (Claude Code에서 실행)
+# 1. 마켓플레이스 추가
 /plugin marketplace add https://github.com/mininny/everything-claude-code-ios
 
-# Step 2: 플러그인 설치
+# 2. 플러그인 설치
 /plugin install everything-claude-code-ios@everything-claude-code-ios
 ```
 
-**설치 범위 옵션**:
-```bash
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # 모든 프로젝트 (기본값)
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # 팀과 공유
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # 이 프로젝트만 (gitignore됨)
-```
+### 확인
 
-**사용 시기**: 자동 업데이트와 Claude Code 명령어를 통한 간편한 관리를 원할 때
-
-### 설치 확인
-
-설치 후, 프로젝트 디렉토리에서 Claude Code를 시작합니다:
-
-```bash
-claude
-```
-
-플러그인이 로드되었는지 확인하려면 명령어를 실행해보세요:
-
-```
-/plan 플러그인 설치 테스트
-```
-
-플래닝 에이전트가 응답하면 설치가 완료된 것입니다.
-
-Plugin 명령어로 설치한 경우 다음으로 확인:
 ```
 /plugin list
 ```
-설치된 플러그인 목록에 `everything-claude-code-ios`가 표시되어야 합니다.
 
-### 플러그인 업데이트
+목록에 `everything-claude-code-ios`가 표시되어야 합니다. `/plan hello`로 동작을 확인하세요.
 
-```bash
-# 마켓플레이스 인덱스 업데이트
-/plugin marketplace update everything-claude-code-ios
+---
 
-# 플러그인을 최신 버전으로 업데이트
-/plugin update everything-claude-code-ios
+## 사용 예시
+
+### 에이전트
+
+```
+@ios-architect 인증 모듈 아키텍처를 설계해줘
+@swift-tdd-guide LoginViewModel 테스트를 작성해줘
+@ios-security-reviewer Keychain 구현을 검토해줘
 ```
 
-### 플러그인 삭제
+### 명령어
 
-```bash
-# 플러그인 제거
-/plugin uninstall everything-claude-code-ios
-
-# 마켓플레이스 제거 (선택사항)
-/plugin marketplace remove everything-claude-code-ios
+```
+/plan 사용자 프로필 편집 기능 구현
+/swift-review
+/xcode-build-fix
+/swift-tdd
 ```
 
 ---
@@ -473,9 +343,9 @@ Plugin 명령어로 설치한 경우 다음으로 확인:
 
 | 에이전트 | 설명 |
 |----------|------|
-| `ios-planner` | 기능 기획, App Store 규정 준수 확인 |
+| `ios-planner` | 기능 기획, App Store 규정 준수 |
 | `ios-architect` | 아키텍처 설계 (Clean Architecture, TCA) |
-| `swift-tdd-guide` | Swift Testing 프레임워크 TDD 가이드 |
+| `swift-tdd-guide` | Swift Testing TDD 가이드 |
 | `swift-code-reviewer` | Swift 코드 리뷰 |
 | `ios-security-reviewer` | 보안 감사 (OWASP, Keychain, ATS) |
 | `xcode-build-resolver` | 빌드 에러 해결 (Swift 6, Privacy Manifest) |
@@ -483,134 +353,81 @@ Plugin 명령어로 설치한 경우 다음으로 확인:
 | `swift-refactor-cleaner` | 리팩토링, 죽은 코드 제거 |
 | `ios-doc-updater` | DocC 문서화 |
 
-### 주요 기능
+### 명령어 (10개)
 
-- **자동 SwiftFormat** - Swift 파일 편집 시 자동 포맷팅
-- **print() 경고** - 디버그 print문 감지 및 경고
-- **세션 지속성** - 세션 간 컨텍스트 유지
+| 명령어 | 설명 |
+|--------|------|
+| `/plan` | 구현 계획 작성 |
+| `/swift-tdd` | TDD 세션 시작 |
+| `/swift-review` | 코드 리뷰 |
+| `/xcode-build-fix` | 빌드 에러 해결 |
+| `/xcuitest` | E2E 테스트 실행 |
+| `/ios-coverage` | 테스트 커버리지 확인 |
+| `/swift-refactor` | 죽은 코드 제거 리팩토링 |
+| `/learn` | 코드베이스 패턴 학습 |
+| `/update-docs` | 문서 업데이트 |
+| `/update-codemaps` | 코드 맵 업데이트 |
+
+### 스킬 (6개)
+
+- `ios-security-review` - 보안 체크리스트
+- `swift-tdd-workflow` - Red-Green-Refactor 가이드
+- `swift-coding-standards` - Swift 모범 사례
+- `swiftui-patterns` - SwiftUI 패턴
+- `ios-project-guidelines` - 프로젝트 구조 가이드
+- `backend-patterns` - 백엔드 통합 패턴
+
+### Hooks
+
+- **SwiftFormat** - Swift 파일 편집 시 자동 포맷팅
+- **print() 경고** - 디버그 print문 감지
 - **푸시 전 리뷰** - git push 전 변경사항 확인
+- **세션 지속성** - 세션 간 컨텍스트 유지
+
+### MCP 서버
+
+- GitHub - PR/Issue 관리
+- Memory - 컨텍스트 지속성
+- Context7 - 문서 조회
 
 ---
 
-## 사용 예시
+## 대체 설치 방법
 
-### 에이전트 호출
+### 글로벌 설치
 
-```
-@ios-architect 인증 모듈 아키텍처를 설계해줘
-@swift-tdd-guide LoginViewModel 테스트를 작성해줘
-@ios-security-reviewer Keychain 구현을 검토해줘
-```
+모든 프로젝트에서 사용:
 
-### 명령어 사용
-
-```
-/plan 사용자 프로필 편집 기능 구현
-/swift-review
-/xcode-build-fix
+```bash
+git clone https://github.com/mininny/everything-claude-code-ios.git
+cp -r everything-claude-code-ios ~/.claude/plugins/everything-claude-code-ios
 ```
 
----
+### 프로젝트별 설치
 
-## 문제 해결
+프로젝트별 커스터마이징:
 
-### 플러그인이 인식되지 않음
-
-**증상**: `/plan` 같은 명령어가 작동하지 않거나 에이전트를 사용할 수 없음
-
-**해결 방법**:
-1. 플러그인 디렉토리 존재 확인:
-   ```bash
-   # 글로벌 설치의 경우
-   ls ~/.claude/plugins/everything-claude-code-ios
-
-   # 로컬 설치의 경우
-   ls .claude/plugins/ios
-   ```
-2. 파일 권한 확인:
-   ```bash
-   chmod -R 755 ~/.claude/plugins/everything-claude-code-ios
-   ```
-3. Claude Code 완전히 재시작 (종료 후 다시 실행)
-
-### MCP 서버 연결 실패
-
-**증상**: GitHub 연동이 안 되거나 메모리 기능을 사용할 수 없음
-
-**해결 방법**:
-1. 환경 변수 설정 확인:
-   ```bash
-   echo $GITHUB_TOKEN
-   ```
-2. 토큰에 필요한 권한이 있는지 확인 (repo, read:user)
-3. 토큰이 만료되었다면 재발급
-
-### Hooks가 동작하지 않음
-
-**증상**: SwiftFormat이 저장 시 실행되지 않거나, 푸시 전 리뷰가 나타나지 않음
-
-**해결 방법**:
-1. `hooks.json` 문법 확인:
-   ```bash
-   cat ~/.claude/plugins/everything-claude-code-ios/hooks.json | python3 -m json.tool
-   ```
-2. 파일 패턴이 올바른지 확인
-3. Hook 명령어(예: `swiftformat`)가 설치되어 있고 PATH에 있는지 확인
-
-### Swift 도구를 찾을 수 없음
-
-**증상**: SwiftFormat, Periphery 등의 도구가 "command not found" 오류 발생
-
-**해결 방법**:
-1. Homebrew로 누락된 도구 설치:
-   ```bash
-   brew install swiftformat
-   brew install peripheryapp/periphery/periphery
-   ```
-2. 설치 확인:
-   ```bash
-   which swiftformat
-   which periphery
-   ```
-
----
-
-## 지원 아키텍처
-
-### Clean Architecture
-
-```
-Presentation Layer (SwiftUI Views, ViewModels)
-    ↓
-Domain Layer (Use Cases, Entities, Repository Protocols)
-    ↓
-Data Layer (Repository Implementations, Data Sources)
-    ↓
-Infrastructure Layer (Network, Database, Keychain)
+```bash
+cd /path/to/your/ios-project
+git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plugins/ios
 ```
 
-### TCA (The Composable Architecture)
+### Plugin 명령어 옵션
 
+```bash
+# 설치 범위
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # 모든 프로젝트 (기본값)
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # 팀과 공유
+/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # 이 프로젝트만
+
+# 업데이트
+/plugin marketplace update everything-claude-code-ios
+/plugin update everything-claude-code-ios
+
+# 삭제
+/plugin uninstall everything-claude-code-ios
+/plugin marketplace remove everything-claude-code-ios
 ```
-Feature
-├── State (상태)
-├── Action (액션)
-├── Reducer (리듀서)
-├── Environment/Dependencies (의존성)
-└── View (뷰)
-```
-
----
-
-## 테스트 전략
-
-| 테스트 유형 | 프레임워크 | 용도 |
-|-------------|------------|------|
-| 단위 테스트 | Swift Testing | 비즈니스 로직, ViewModel, Use Case |
-| 통합 테스트 | Swift Testing | Repository + Data Source 통합 |
-| UI 테스트 | XCUITest | 사용자 흐름, 접근성 |
-| 스냅샷 테스트 | swift-snapshot-testing | UI 회귀 |
-| 성능 테스트 | XCTest | 메모리, CPU 프로파일링 |
 
 ---
 
@@ -618,15 +435,13 @@ Feature
 
 ### 환경 변수
 
-MCP 서버 사용을 위해 다음 환경 변수를 설정하세요:
-
 ```bash
-export GITHUB_TOKEN="your_github_pat"
+export GITHUB_TOKEN="your_github_pat"  # GitHub MCP 서버용
 ```
 
 ### 커스터마이징
 
-프로젝트의 `.claude/settings.json`에서 플러그인 설정을 재정의할 수 있습니다:
+`.claude/settings.json`에서 설정 재정의:
 
 ```json
 {
@@ -640,29 +455,63 @@ export GITHUB_TOKEN="your_github_pat"
 
 ---
 
-## 기여하기
+## 문제 해결
 
-기여를 환영합니다! 가이드라인은 [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요.
+<details>
+<summary><strong>플러그인이 인식되지 않음</strong></summary>
 
----
+**증상**: `/plan` 같은 명령어가 작동하지 않음
 
-## 라이선스
+**해결**:
+1. 설치 확인: `/plugin list`
+2. 수동 설치의 경우 디렉토리 확인:
+   ```bash
+   ls ~/.claude/plugins/everything-claude-code-ios
+   ```
+3. 권한 확인: `chmod -R 755 ~/.claude/plugins/everything-claude-code-ios`
+4. Claude Code 재시작
 
-이 프로젝트는 MIT 라이선스를 따릅니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참고하세요.
+</details>
+
+<details>
+<summary><strong>MCP 서버 연결 실패</strong></summary>
+
+**증상**: GitHub 연동이 안 됨
+
+**해결**:
+1. 확인: `echo $GITHUB_TOKEN`
+2. 토큰 권한 확인 (repo, read:user)
+3. 만료 시 재발급
+
+</details>
+
+<details>
+<summary><strong>Hooks가 동작하지 않음</strong></summary>
+
+**증상**: SwiftFormat이 저장 시 실행되지 않음
+
+**해결**:
+1. hooks.json 문법 확인: `python3 -m json.tool < hooks/hooks.json`
+2. 파일 패턴 일치 여부 확인
+3. `swiftformat` PATH 확인: `which swiftformat`
+
+</details>
+
+<details>
+<summary><strong>Swift 도구를 찾을 수 없음</strong></summary>
+
+**해결**:
+```bash
+brew install swiftformat
+brew install peripheryapp/periphery/periphery
+```
+
+</details>
 
 ---
 
 ## 감사의 말
 
-### 원본 프로젝트
+이 플러그인은 [@affaan-m](https://github.com/affaan-m)이 만든 **[everything-claude-code](https://github.com/affaan-m/everything-claude-code)**를 기반으로 합니다. Anthropic 해커톤 수상작으로, 프로덕션 수준의 Claude Code 설정을 제공합니다.
 
-이 iOS 전용 플러그인은 [@affaan-m](https://github.com/affaan-m)이 만든 **[everything-claude-code](https://github.com/affaan-m/everything-claude-code)**를 기반으로 합니다.
-
-원본 프로젝트는 Anthropic 해커톤에서 수상한 작품으로, 실제 사용 경험을 바탕으로 개발된 프로덕션 수준의 에이전트, 스킬, 훅, 명령어, MCP 설정을 제공합니다. Claude Code 커스터마이징의 종합적인 기반이 되는 프로젝트입니다.
-
-이 iOS 버전을 만들 수 있게 해준 오픈소스 기여에 깊이 감사드립니다.
-
-### 추가 감사
-
-- iOS 개발 모범 사례를 제공하는 Apple과 Swift 커뮤니티
-- 확장 가능한 플랫폼을 구축한 Claude Code 팀
+Apple, Swift 커뮤니티, Claude Code 팀에 감사드립니다.
