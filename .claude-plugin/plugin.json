@@ -4,10 +4,10 @@
   "description": "Comprehensive Claude Code configurations for iOS/Swift development with agents, skills, hooks, and MCP servers",
   "author": {
     "name": "okminlee",
-    "url": "https://github.com/mininny"
+    "url": "https://github.com/OkminLee"
   },
-  "homepage": "https://github.com/mininny/everything-claude-code-ios",
-  "repository": "https://github.com/mininny/everything-claude-code-ios",
+  "homepage": "https://github.com/OkminLee/everything-claude-code-ios",
+  "repository": "https://github.com/OkminLee/everything-claude-code-ios",
   "license": "MIT",
   "keywords": [
     "ios",

@@ -38,7 +38,7 @@ Run these commands inside Claude Code:
 
 ```bash
 # 1. Add marketplace
-/plugin marketplace add https://github.com/mininny/everything-claude-code-ios
+/plugin marketplace add https://github.com/OkminLee/everything-claude-code-ios
 
 # 2. Install plugin
 /plugin install everything-claude-code-ios@everything-claude-code-ios
@@ -137,7 +137,7 @@ You should see `everything-claude-code-ios` in the list. Try `/plan hello` to co
 Use across all projects:
 
 ```bash
-git clone https://github.com/mininny/everything-claude-code-ios.git
+git clone https://github.com/OkminLee/everything-claude-code-ios.git
 cp -r everything-claude-code-ios ~/.claude/plugins/everything-claude-code-ios
 ```
 
@@ -147,7 +147,7 @@ For project-specific customization:
 
 ```bash
 cd /path/to/your/ios-project
-git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plugins/ios
+git clone https://github.com/OkminLee/everything-claude-code-ios.git .claude/plugins/ios
 ```
 
 ### Plugin Command Options
@@ -300,7 +300,7 @@ Claude Code 내에서 다음 명령어를 실행하세요:
 
 ```bash
 # 1. 마켓플레이스 추가
-/plugin marketplace add https://github.com/mininny/everything-claude-code-ios
+/plugin marketplace add https://github.com/OkminLee/everything-claude-code-ios
 
 # 2. 플러그인 설치
 /plugin install everything-claude-code-ios@everything-claude-code-ios
@@ -399,7 +399,7 @@ Claude Code 내에서 다음 명령어를 실행하세요:
 모든 프로젝트에서 사용:
 
 ```bash
-git clone https://github.com/mininny/everything-claude-code-ios.git
+git clone https://github.com/OkminLee/everything-claude-code-ios.git
 cp -r everything-claude-code-ios ~/.claude/plugins/everything-claude-code-ios
 ```
 
@@ -409,7 +409,7 @@ cp -r everything-claude-code-ios ~/.claude/plugins/everything-claude-code-ios
 
 ```bash
 cd /path/to/your/ios-project
-git clone https://github.com/mininny/everything-claude-code-ios.git .claude/plugins/ios
+git clone https://github.com/OkminLee/everything-claude-code-ios.git .claude/plugins/ios
 ```
 
 ### Plugin 명령어 옵션
