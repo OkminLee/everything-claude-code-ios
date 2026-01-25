@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_description": "iOS 프로젝트용 Claude Code 설정 예시",
+
+  "model": "claude-sonnet-4-20250514",
+  "permissions": {
+    "allow": [
+      "Bash(xcodebuild:*)",
+      "Bash(swift:*)",
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "Bash(swiftlint:*)",
+      "Bash(swiftformat:*)",
+      "Bash(periphery:*)",
+      "Read",
+      "Write",
+      "Edit"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo:*)"
+    ]
+  },
+
+  "agents": {
+    "enabled": true,
+    "directory": ".claude/agents"
+  },
+
+  "hooks": {
+    "enabled": true,
+    "configPath": ".claude/hooks/ios-hooks.json"
+  },
+
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"]
+    }
+  },
+
+  "disabledMcpServers": [
+    "comment: 컨텍스트 윈도우 절약을 위해 불필요한 MCP는 비활성화"
+  ],
+
+  "context": {
+    "includePatterns": [
+      "**/*.swift",
+      "**/*.xib",
+      "**/*.storyboard",
+      "**/Package.swift",
+      "**/Podfile",
+      "**/*.xcconfig",
+      "**/PrivacyInfo.xcprivacy"
+    ],
+    "excludePatterns": [
+      "**/DerivedData/**",
+      "**/.build/**",
+      "**/Pods/**",
+      "**/*.xcarchive/**",
+      "**/xcuserdata/**"
+    ]
+  },
+
+  "_usage": {
+    "copy_to": "프로젝트/.claude/settings.json",
+    "env_vars": "GITHUB_TOKEN 환경 변수 설정 필요",
+    "note": "프로젝트에 맞게 paths와 permissions 조정"
+  }
+}
