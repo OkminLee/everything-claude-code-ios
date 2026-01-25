@@ -1,0 +1,19 @@
+{
+  "name": "everything-claude-code-ios",
+  "owner": {
+    "name": "OkminLee",
+    "email": "leeokmin@gmail.com"
+  },
+  "metadata": {
+    "description": "iOS/Swift development plugins for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "everything-claude-code-ios",
+      "source": "./",
+      "description": "Comprehensive Claude Code configurations for iOS/Swift development with agents, skills, hooks, and MCP servers",
+      "version": "1.0.0"
+    }
+  ]
+}

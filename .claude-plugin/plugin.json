@@ -20,10 +20,5 @@
     "xcuitest",
     "code-review",
     "security"
-  ],
-  "agents": "./agents/",
-  "commands": "./commands/",
-  "skills": "./skills/",
-  "hooks": "./hooks/hooks.json",
-  "mcpServers": "./.mcp.json"
+  ]
 }
