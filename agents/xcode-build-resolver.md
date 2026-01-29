@@ -1066,7 +1066,7 @@ After build error resolution:
 - ✅ `xcodebuild -scheme MyApp build` exits with code 0
 - ✅ Release build completes successfully
 - ✅ No new errors introduced
-- ✅ Minimal lines changed (< 5% of affected file)
+- ✅ Minimal lines changed (under 5% of affected file)
 - ✅ Build time not significantly increased
 - ✅ Simulator run works without errors
 - ✅ Tests still passing

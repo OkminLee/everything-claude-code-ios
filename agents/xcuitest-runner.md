@@ -1424,11 +1424,11 @@ final class PushNotificationUITests: XCTestCase {
 
 After E2E test run:
 - All critical journeys passing (100%)
-- Pass rate > 95% overall
-- Flaky rate < 5%
+- Pass rate over 95% overall
+- Flaky rate under 5%
 - No failed tests blocking deployment
 - Artifacts uploaded and accessible
-- Test duration < 10 minutes
+- Test duration under 10 minutes
 - Result bundle generated
 
 ---
