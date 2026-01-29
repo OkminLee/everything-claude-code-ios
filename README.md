@@ -18,6 +18,7 @@
 - [Alternative Installation](#alternative-installation)
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
+- [Changelog](#changelog)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
@@ -248,6 +249,18 @@ brew install peripheryapp/periphery/periphery
 
 ---
 
+## Changelog
+
+### v1.0.1 (2026-01-29)
+
+**Fixed**
+- Shell parsing issues in documentation files
+  - Replaced `<` and `>` comparison symbols with text equivalents (`under`, `over`, `exceeding`)
+  - Affected files: `swift-review.md`, `swift-code-reviewer.md`, `swift-style.md`, `xcode-build-resolver.md`, `xcuitest-runner.md`
+  - These symbols were being misinterpreted as shell redirection by the skill loader
+
+---
+
 ## Contributing
 
 Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -284,6 +297,7 @@ Thanks to Apple, Swift community, and the Claude Code team.
 - [대체 설치 방법](#대체-설치-방법)
 - [설정](#설정)
 - [문제 해결](#문제-해결)
+- [변경 이력](#변경-이력)
 
 ---
 
@@ -507,6 +521,18 @@ brew install peripheryapp/periphery/periphery
 ```
 
 </details>
+
+---
+
+## 변경 이력
+
+### v1.0.1 (2026-01-29)
+
+**수정**
+- 문서 파일의 shell parsing 오류 수정
+  - `<`, `>` 비교 기호를 텍스트(`under`, `over`, `exceeding`)로 교체
+  - 영향 받은 파일: `swift-review.md`, `swift-code-reviewer.md`, `swift-style.md`, `xcode-build-resolver.md`, `xcuitest-runner.md`
+  - skill loader가 해당 기호를 shell redirection으로 잘못 해석하는 문제 해결
 
 ---
 
