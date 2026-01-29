@@ -34,10 +34,10 @@ This command invokes the **swift-code-reviewer** agent.
 - Combine: `assign(to:on:)` creating retain cycle
 
 **Code Quality (HIGH):**
-- Force unwrapping (`!`) without guard/if-let
-- Functions > 40 lines
-- Files > 500 lines
-- Nesting depth > 4 levels
+- Force unwrapping (!) without guard/if-let
+- Functions exceeding 40 lines
+- Files exceeding 500 lines
+- Nesting depth exceeding 4 levels
 - Missing access control (private by default)
 - `print()` statements in production code
 - TODO/FIXME comments

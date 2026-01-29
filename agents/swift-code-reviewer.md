@@ -69,11 +69,11 @@ Include specific examples of how to fix issues.
 ## Code Quality (HIGH)
 
 ### Swift Style
-- [ ] Force unwrapping (!) without guard/if-let
+- [ ] Force unwrapping without guard/if-let
 - [ ] Implicitly unwrapped optionals (IUO) misused
-- [ ] Large functions (>40 lines)
-- [ ] Large files (>500 lines)
-- [ ] Deep nesting (>4 levels)
+- [ ] Large functions (over 40 lines)
+- [ ] Large files (over 500 lines)
+- [ ] Deep nesting (over 4 levels)
 - [ ] Missing access control (should be private by default)
 - [ ] Poor naming (not following Swift API Design Guidelines)
 - [ ] Inconsistent code formatting
