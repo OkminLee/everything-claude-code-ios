@@ -560,10 +560,10 @@ struct ProfileView_Previews: PreviewProvider {
 
 ### Structure & Naming
 - [ ] Follows Swift API Design Guidelines
-- [ ] Functions < 40 lines (max 80)
-- [ ] SwiftUI View < 200 lines, ViewController < 400 lines
-- [ ] Total file < 500 lines (max 800)
-- [ ] Nesting < 3 levels
+- [ ] Functions under 40 lines (max 80)
+- [ ] SwiftUI View under 200 lines, ViewController under 400 lines
+- [ ] Total file under 500 lines (max 800)
+- [ ] Nesting under 3 levels
 - [ ] 1 major type per file
 
 ### Memory & Performance
@@ -604,7 +604,7 @@ struct ProfileView_Previews: PreviewProvider {
 
 ### SwiftUI Specific
 - [ ] Extract `@ViewBuilder` to prevent nesting
-- [ ] Modifier chains > 5 levels → Custom Modifier
+- [ ] Modifier chains over 5 levels → Custom Modifier
 - [ ] Use `#Preview` macro
 
 ### iOS Specific
