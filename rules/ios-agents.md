@@ -2,27 +2,27 @@
 
 ## Available Agents
 
-Located in `~/.claude/agents/`:
+Located in `agents/` directory (registered with `everything-claude-code-ios:` namespace):
 
 | Agent | Purpose | When to Use |
 |-------|---------|-------------|
-| ios-planner | Implementation planning | Complex features, refactoring |
-| ios-architect | System design | Architectural decisions (MVVM, TCA, Clean) |
-| swift-tdd-guide | Test-driven development | New features, bug fixes |
-| swift-code-reviewer | Code review | After writing code |
-| ios-security-reviewer | Security analysis | Before commits |
-| xcode-build-resolver | Fix build errors | When Xcode build fails |
-| xcuitest-runner | E2E testing | Critical user flows |
-| swift-refactor-cleaner | Dead code cleanup | Code maintenance, Swift migration |
-| ios-doc-updater | Documentation | Updating DocC docs |
+| `everything-claude-code-ios:ios-planner` | Implementation planning | Complex features, refactoring |
+| `everything-claude-code-ios:ios-architect` | System design | Architectural decisions (MVVM, TCA, Clean) |
+| `everything-claude-code-ios:swift-tdd-guide` | Test-driven development | New features, bug fixes |
+| `everything-claude-code-ios:swift-code-reviewer` | Code review | After writing code |
+| `everything-claude-code-ios:ios-security-reviewer` | Security analysis | Before commits |
+| `everything-claude-code-ios:xcode-build-resolver` | Fix build errors | When Xcode build fails |
+| `everything-claude-code-ios:xcuitest-runner` | E2E testing | Critical user flows |
+| `everything-claude-code-ios:swift-refactor-cleaner` | Dead code cleanup | Code maintenance, Swift migration |
+| `everything-claude-code-ios:ios-doc-updater` | Documentation | Updating DocC docs |
 
 ## Immediate Agent Usage
 
 No user prompt needed:
-1. Complex feature requests - Use **ios-planner** agent
-2. Code just written/modified - Use **swift-code-reviewer** agent
-3. Bug fix or new feature - Use **swift-tdd-guide** agent
-4. Architectural decision - Use **ios-architect** agent
+1. Complex feature requests - Use **everything-claude-code-ios:ios-planner** agent
+2. Code just written/modified - Use **everything-claude-code-ios:swift-code-reviewer** agent
+3. Bug fix or new feature - Use **everything-claude-code-ios:swift-tdd-guide** agent
+4. Architectural decision - Use **everything-claude-code-ios:ios-architect** agent
 
 ## When NOT to Use Agents
 

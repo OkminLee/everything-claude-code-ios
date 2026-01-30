@@ -80,17 +80,19 @@ You should see `everything-claude-code-ios` in the list. Try `/plan hello` to co
 
 ### Agents (9)
 
+All agents are registered with `everything-claude-code-ios:` namespace prefix.
+
 | Agent | Description |
 |-------|-------------|
-| `ios-planner` | Feature planning with App Store compliance |
-| `ios-architect` | Architecture design (Clean Architecture, TCA) |
-| `swift-tdd-guide` | TDD workflow with Swift Testing |
-| `swift-code-reviewer` | Code review with Swift best practices |
-| `ios-security-reviewer` | Security audit (OWASP, Keychain, ATS) |
-| `xcode-build-resolver` | Build error resolution (Swift 6, Privacy Manifest) |
-| `xcuitest-runner` | E2E testing with Page Object Model |
-| `swift-refactor-cleaner` | Refactoring with Periphery dead code detection |
-| `ios-doc-updater` | Documentation with DocC |
+| `everything-claude-code-ios:ios-planner` | Feature planning with App Store compliance |
+| `everything-claude-code-ios:ios-architect` | Architecture design (Clean Architecture, TCA) |
+| `everything-claude-code-ios:swift-tdd-guide` | TDD workflow with Swift Testing |
+| `everything-claude-code-ios:swift-code-reviewer` | Code review with Swift best practices |
+| `everything-claude-code-ios:ios-security-reviewer` | Security audit (OWASP, Keychain, ATS) |
+| `everything-claude-code-ios:xcode-build-resolver` | Build error resolution (Swift 6, Privacy Manifest) |
+| `everything-claude-code-ios:xcuitest-runner` | E2E testing with Page Object Model |
+| `everything-claude-code-ios:swift-refactor-cleaner` | Refactoring with Periphery dead code detection |
+| `everything-claude-code-ios:ios-doc-updater` | Documentation with DocC |
 
 ### Commands (10)
 
@@ -251,6 +253,13 @@ brew install peripheryapp/periphery/periphery
 
 ## Changelog
 
+### v1.0.2 (2026-01-30)
+
+**Fixed**
+- Agent names now use full namespace (`everything-claude-code-ios:agent-name`) in documentation
+  - Prevents "Agent type not found" errors when invoking agents via Task tool
+  - Updated: `rules/ios-agents.md`, `README.md`
+
 ### v1.0.1 (2026-01-29)
 
 **Fixed**
@@ -355,17 +364,19 @@ Claude Code 내에서 다음 명령어를 실행하세요:
 
 ### 에이전트 (9개)
 
+모든 에이전트는 `everything-claude-code-ios:` 네임스페이스 접두사로 등록됩니다.
+
 | 에이전트 | 설명 |
 |----------|------|
-| `ios-planner` | 기능 기획, App Store 규정 준수 |
-| `ios-architect` | 아키텍처 설계 (Clean Architecture, TCA) |
-| `swift-tdd-guide` | Swift Testing TDD 가이드 |
-| `swift-code-reviewer` | Swift 코드 리뷰 |
-| `ios-security-reviewer` | 보안 감사 (OWASP, Keychain, ATS) |
-| `xcode-build-resolver` | 빌드 에러 해결 (Swift 6, Privacy Manifest) |
-| `xcuitest-runner` | Page Object Model E2E 테스트 |
-| `swift-refactor-cleaner` | 리팩토링, 죽은 코드 제거 |
-| `ios-doc-updater` | DocC 문서화 |
+| `everything-claude-code-ios:ios-planner` | 기능 기획, App Store 규정 준수 |
+| `everything-claude-code-ios:ios-architect` | 아키텍처 설계 (Clean Architecture, TCA) |
+| `everything-claude-code-ios:swift-tdd-guide` | Swift Testing TDD 가이드 |
+| `everything-claude-code-ios:swift-code-reviewer` | Swift 코드 리뷰 |
+| `everything-claude-code-ios:ios-security-reviewer` | 보안 감사 (OWASP, Keychain, ATS) |
+| `everything-claude-code-ios:xcode-build-resolver` | 빌드 에러 해결 (Swift 6, Privacy Manifest) |
+| `everything-claude-code-ios:xcuitest-runner` | Page Object Model E2E 테스트 |
+| `everything-claude-code-ios:swift-refactor-cleaner` | 리팩토링, 죽은 코드 제거 |
+| `everything-claude-code-ios:ios-doc-updater` | DocC 문서화 |
 
 ### 명령어 (10개)
 
@@ -525,6 +536,13 @@ brew install peripheryapp/periphery/periphery
 ---
 
 ## 변경 이력
+
+### v1.0.2 (2026-01-30)
+
+**수정**
+- 문서에서 에이전트 이름에 전체 네임스페이스(`everything-claude-code-ios:에이전트명`) 사용
+  - Task 도구로 에이전트 호출 시 "Agent type not found" 오류 방지
+  - 수정된 파일: `rules/ios-agents.md`, `README.md`
 
 ### v1.0.1 (2026-01-29)
 
