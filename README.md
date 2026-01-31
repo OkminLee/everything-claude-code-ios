@@ -39,10 +39,10 @@ Run these commands inside Claude Code:
 
 ```bash
 # 1. Add marketplace
-/plugin marketplace add https://github.com/OkminLee/everything-claude-code-ios
+/plugin marketplace add OkminLee/everything-claude-code-ios
 
 # 2. Install plugin
-/plugin install everything-claude-code-ios@everything-claude-code-ios
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios
 ```
 
 ### Verify
@@ -157,17 +157,17 @@ git clone https://github.com/OkminLee/everything-claude-code-ios.git .claude/plu
 
 ```bash
 # Installation scopes
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # All projects (default)
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # Share with team
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # This project only
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios --scope user     # All projects (default)
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios --scope project  # Share with team
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios --scope local    # This project only
 
 # Update
-/plugin marketplace update everything-claude-code-ios
+/plugin marketplace update OkminLee-everything-claude-code-ios
 /plugin update everything-claude-code-ios
 
 # Uninstall
 /plugin uninstall everything-claude-code-ios
-/plugin marketplace remove everything-claude-code-ios
+/plugin marketplace remove OkminLee-everything-claude-code-ios
 ```
 
 ---
@@ -323,10 +323,10 @@ Claude Code 내에서 다음 명령어를 실행하세요:
 
 ```bash
 # 1. 마켓플레이스 추가
-/plugin marketplace add https://github.com/OkminLee/everything-claude-code-ios
+/plugin marketplace add OkminLee/everything-claude-code-ios
 
 # 2. 플러그인 설치
-/plugin install everything-claude-code-ios@everything-claude-code-ios
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios
 ```
 
 ### 확인
@@ -441,17 +441,17 @@ git clone https://github.com/OkminLee/everything-claude-code-ios.git .claude/plu
 
 ```bash
 # 설치 범위
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope user     # 모든 프로젝트 (기본값)
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope project  # 팀과 공유
-/plugin install everything-claude-code-ios@everything-claude-code-ios --scope local    # 이 프로젝트만
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios --scope user     # 모든 프로젝트 (기본값)
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios --scope project  # 팀과 공유
+/plugin install everything-claude-code-ios@OkminLee-everything-claude-code-ios --scope local    # 이 프로젝트만
 
 # 업데이트
-/plugin marketplace update everything-claude-code-ios
+/plugin marketplace update OkminLee-everything-claude-code-ios
 /plugin update everything-claude-code-ios
 
 # 삭제
 /plugin uninstall everything-claude-code-ios
-/plugin marketplace remove everything-claude-code-ios
+/plugin marketplace remove OkminLee-everything-claude-code-ios
 ```
 
 ---
